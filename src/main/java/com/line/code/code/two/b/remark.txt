@@ -1,0 +1,7 @@
+自定义异常 自动捕捉; 这里是部分的捕捉,不是全局的;
+需要自动捕捉controller 都要继承 PartialExceptionController;
+PartialExceptionController 中实现自定义异常捕捉的处理逻辑;
+
+全局捕捉看下面 b
+
+注意只开一个异常捕捉,不要都开了
