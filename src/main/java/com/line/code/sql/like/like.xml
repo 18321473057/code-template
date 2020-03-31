@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="XXXXXXX">
+    <!--对多个字段做模糊查询-->
+    <select id="XXX">
+         select t2.address from (
+             select
+             t1.province || t1.city || t1.district || t1.town as address
+             from t_table1 t1
+         ) t2
+         where  t2.address  LIKE '%' ||#{attr2}|| '%'
+    </select>
+
+</mapper>
