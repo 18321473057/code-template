@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @Author: yangcs
  * @Date: 2020/3/28 15:49
- * @Description:  演示统一的自定义异常捕捉
+ * @Description:  演示统一的自定义异常捕捉 , 需要继承 PartialExceptionController
  */
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/test/partial")
 public class TestPartialExceptionControllerController extends PartialExceptionController{
     @Autowired
     private ExceptionService exceptionService;

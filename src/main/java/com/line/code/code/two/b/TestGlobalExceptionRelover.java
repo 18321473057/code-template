@@ -1,7 +1,11 @@
 package com.line.code.code.two.b;
 
 import com.line.code.code.two.exception.BusinessException;
+import com.line.code.code.two.service.ExceptionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -14,24 +18,24 @@ import javax.servlet.http.HttpServletResponse;
  * @Date: 2020/3/28 16:20
  * @Description:全局异常处理者
  */
-@Component
-public class TestGlobalExceptionRelover implements HandlerExceptionResolver {
+@RestController
+@RequestMapping("/test/golbal")
+public class TestGlobalExceptionRelover {
 
-    @Override
-    public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {
-            e.printStackTrace();
-            ModelAndView mv = new ModelAndView();
-            MappingJackson2JsonView view = new MappingJackson2JsonView();
-            mv.setView(view);
-            if(e instanceof BusinessException){
-                   //自定义异常,自己写处理逻辑
-                mv.addObject("status", "401001");
-                mv.addObject("message", "自定义异常,业务出现问题!");
-            }else{
-                //未捕获异常
-                mv.addObject("status", "500");
-                mv.addObject("message", "系统异常,请联系管理员!");
-            }
-        return null;
+    @Autowired
+    private ExceptionService exceptionService;
+
+    //其他异常
+    @RequestMapping("/other")
+    public String other() {
+        return exceptionService.otherException();
     }
+
+    //自定义异常
+    @RequestMapping("/business")
+    public String business() {
+        return exceptionService.BusinessException();
+    }
+
+
 }
